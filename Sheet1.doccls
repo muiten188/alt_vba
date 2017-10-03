@@ -1,0 +1,35 @@
+Dim outputRange As Range
+Dim sFileInput As Variant
+Dim inputRange As Range
+Dim sFileSaveName As Variant
+Dim workbookTemplate As Workbook
+
+Sub btnOpenFileDialog_Click()
+    Dim sTitleInput As String
+    Dim inputRange As Range
+    sTitleInput = "Get Input File"
+    Set inputRange = Range("B3")
+    sFileInput = ExcelModule.OpenFileName(sTitleInput, 1)
+    inputRange.Value = sFileInput
+End Sub
+
+Sub btnToSaveFile_Click()
+    Dim IntialName As String
+    IntialName = "Output File"
+    Set outputRange = Range("B5")
+    sFileSaveName = Application.GetSaveAsFilename(InitialFileName:=InitialName, fileFilter:="Excel Files (*.xlsx), *.xlsm")
+    outputRange = sFileSaveName
+    
+End Sub
+
+Sub btnStart_Click()
+    If Not IsEmpty(sFileSaveName) And Not IsNull(WorkBookModule.workbookTemplate()) Then
+       Call ExcelModule.SaveExcel(workbookTemplate, sFileSaveName)
+    Else
+        MsgBox "Choose file to save or can't not found template file!"
+    End If
+End Sub
+
+Sub btnReset_Click()
+    
+End Sub
